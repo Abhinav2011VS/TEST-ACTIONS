@@ -15,7 +15,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Delete the folder if it exists
+      # Step 2: Configure Git with GitHub Actions user
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 3: Delete the folder if it exists
       - name: Delete the folder if it exists
         run: |
           rm -rf my_folder
@@ -27,7 +33,7 @@ jobs:
             echo "No folder to delete in job 1. Skipping commit."
           fi
 
-      # Step 3: Recreate the folder and add a file
+      # Step 4: Recreate the folder and add a file
       - name: Create 'my_folder' again and add a file
         run: |
           mkdir -p my_folder
@@ -40,7 +46,7 @@ jobs:
             echo "No changes detected in job 1. Skipping commit."
           fi
 
-      # Step 4: Verify the folder and file exist
+      # Step 5: Verify the folder and file exist
       - name: Verify 'my_folder' and 'test_file.txt' exist
         run: |
           if [ -d "my_folder" ] && [ -f "my_folder/test_file.txt" ]; then
@@ -60,7 +66,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Delete the folder if it exists
+      # Step 2: Configure Git with GitHub Actions user
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 3: Delete the folder if it exists
       - name: Delete the folder if it exists
         run: |
           rm -rf my_folder
@@ -72,7 +84,7 @@ jobs:
             echo "No folder to delete in job 2. Skipping commit."
           fi
 
-      # Step 3: Recreate the folder and add a file
+      # Step 4: Recreate the folder and add a file
       - name: Create 'my_folder' again and add a file
         run: |
           mkdir -p my_folder
@@ -85,7 +97,7 @@ jobs:
             echo "No changes detected in job 2. Skipping commit."
           fi
 
-      # Step 4: Verify the folder and file exist
+      # Step 5: Verify the folder and file exist
       - name: Verify 'my_folder' and 'test_file.txt' exist
         run: |
           if [ -d "my_folder" ] && [ -f "my_folder/test_file.txt" ]; then
@@ -105,7 +117,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Delete the folder if it exists
+      # Step 2: Configure Git with GitHub Actions user
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # Step 3: Delete the folder if it exists
       - name: Delete the folder if it exists
         run: |
           rm -rf my_folder
@@ -117,7 +135,7 @@ jobs:
             echo "No folder to delete in job 3. Skipping commit."
           fi
 
-      # Step 3: Recreate the folder and add a file
+      # Step 4: Recreate the folder and add a file
       - name: Create 'my_folder' again and add a file
         run: |
           mkdir -p my_folder
@@ -130,7 +148,7 @@ jobs:
             echo "No changes detected in job 3. Skipping commit."
           fi
 
-      # Step 4: Verify the folder and file exist
+      # Step 5: Verify the folder and file exist
       - name: Verify 'my_folder' and 'test_file.txt' exist
         run: |
           if [ -d "my_folder" ] && [ -f "my_folder/test_file.txt" ]; then

@@ -1,0 +1,141 @@
+name: Folder Deletion and Creation Test
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the main branch
+
+jobs:
+  # Job 1: Delete the folder and recreate it
+  delete-and-create-1:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Delete the folder if it exists
+      - name: Delete the folder if it exists
+        run: |
+          rm -rf my_folder
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Deleted 'my_folder' directory in job 1"
+            git push origin main
+          else
+            echo "No folder to delete in job 1. Skipping commit."
+          fi
+
+      # Step 3: Recreate the folder and add a file
+      - name: Create 'my_folder' again and add a file
+        run: |
+          mkdir -p my_folder
+          echo "This is a test file created in job 1." > my_folder/test_file.txt
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Recreated 'my_folder' and added test_file.txt in job 1"
+            git push origin main
+          else
+            echo "No changes detected in job 1. Skipping commit."
+          fi
+
+      # Step 4: Verify the folder and file exist
+      - name: Verify 'my_folder' and 'test_file.txt' exist
+        run: |
+          if [ -d "my_folder" ] && [ -f "my_folder/test_file.txt" ]; then
+            echo "Test file exists inside 'my_folder' in job 1."
+          else
+            echo "Test file or folder is missing in job 1."
+            exit 1  # Fail the job if the folder or file is missing
+          fi
+
+  # Job 2: Delete the folder and recreate it (depends on job 1)
+  delete-and-create-2:
+    needs: delete-and-create-1  # This job runs after job 1 completes
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Delete the folder if it exists
+      - name: Delete the folder if it exists
+        run: |
+          rm -rf my_folder
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Deleted 'my_folder' directory in job 2"
+            git push origin main
+          else
+            echo "No folder to delete in job 2. Skipping commit."
+          fi
+
+      # Step 3: Recreate the folder and add a file
+      - name: Create 'my_folder' again and add a file
+        run: |
+          mkdir -p my_folder
+          echo "This is a test file created in job 2." > my_folder/test_file.txt
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Recreated 'my_folder' and added test_file.txt in job 2"
+            git push origin main
+          else
+            echo "No changes detected in job 2. Skipping commit."
+          fi
+
+      # Step 4: Verify the folder and file exist
+      - name: Verify 'my_folder' and 'test_file.txt' exist
+        run: |
+          if [ -d "my_folder" ] && [ -f "my_folder/test_file.txt" ]; then
+            echo "Test file exists inside 'my_folder' in job 2."
+          else
+            echo "Test file or folder is missing in job 2."
+            exit 1  # Fail the job if the folder or file is missing
+          fi
+
+  # Job 3: Delete the folder and recreate it (depends on job 2)
+  delete-and-create-3:
+    needs: delete-and-create-2  # This job runs after job 2 completes
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Delete the folder if it exists
+      - name: Delete the folder if it exists
+        run: |
+          rm -rf my_folder
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Deleted 'my_folder' directory in job 3"
+            git push origin main
+          else
+            echo "No folder to delete in job 3. Skipping commit."
+          fi
+
+      # Step 3: Recreate the folder and add a file
+      - name: Create 'my_folder' again and add a file
+        run: |
+          mkdir -p my_folder
+          echo "This is a test file created in job 3." > my_folder/test_file.txt
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Recreated 'my_folder' and added test_file.txt in job 3"
+            git push origin main
+          else
+            echo "No changes detected in job 3. Skipping commit."
+          fi
+
+      # Step 4: Verify the folder and file exist
+      - name: Verify 'my_folder' and 'test_file.txt' exist
+        run: |
+          if [ -d "my_folder" ] && [ -f "my_folder/test_file.txt" ]; then
+            echo "Test file exists inside 'my_folder' in job 3."
+          else
+            echo "Test file or folder is missing in job 3."
+            exit 1  # Fail the job if the folder or file is missing
+          fi
